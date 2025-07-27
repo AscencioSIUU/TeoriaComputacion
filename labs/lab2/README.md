@@ -99,9 +99,10 @@ El programa leerá `expressions3.txt`, mostrará los pasos del algoritmo y la co
 
 1. **Algoritmo de Shunting Yard**
 
-   - ¿Cómo funciona?
-   - Complejidad temporal y espacial.
-     El algoritmo de shunting yard (patio de clasificación) fue nombrado así por Edsger Dijistra porque su operación se asemeja al patio de flasificación del ferrocarril. Este algoritmo es un metodo para analizar (parsing) las ecuaciones matemátias en notación infijo, volviendolas a notación postfijo. Esto lo ahce para que una computadora pueda entenderla y resolverla fácilmente.
+El algoritmo de shunting yard (patio de clasificación) fue nombrado así por Edsger Dijistra porque su operación se asemeja al patio de flasificación del ferrocarril. Este algoritmo es un metodo para analizar (parsing) las ecuaciones matemátias en notación infijo, volviendolas a notación postfijo. Esto lo ahce para que una computadora pueda entenderla y resolverla fácilmente.
+El algoritmo lo resuelve utilizando una "pila" donde guarda temporalmente los operandos y luego las organiza en orden diferente, ya sea en estructura de árbol o en notacón polaca inversa "RPN"
+
+La RPN es una notación de postfijo, fue introducida el 1920 por el matemático polaco Jan Łukasiewicz donde indica que cada operador esá antes de sus operandos. En dicha notación primero estpan los operandos y despues viene el operador que va a realizar los cálcuilos sobre ellos.
 
 Pasos:
 
@@ -121,7 +122,8 @@ Pasos:
 6. **Fin de la lectura**:
    - Sacar **todos** los operadores que queden en la pila y **añadirlos** a la cola de salida.
 
-[Shunting yard](labs/lab2/Shunting_yard.png)
+Ejemplo del funcionamiento de la pila
+![Shunting yard](labs/lab2/Shunting_yard.png)
 
 2. **Ejemplo detallado**
    Entrada : 7 + 2 `*` 8 / ( 2 - 3 ) ^ 8 ^ 1
@@ -137,7 +139,7 @@ Pasos:
 | /     | Push del token al stack          | 3 4 8 `*`                   | / +                 | / tiene mayor presedencia que +      |
 | (     | Push del token al stack          | 3 4 8 `*`                   | ( / +               |                                      |
 | 2     | Se agrega el token a la salida   | 3 4 8 `*` 2                 | ( / +               |                                      |
-| -     | Push del token al stack          | 3 4 8 `*` 2                 | - ( / + `           |                                      |
+| -     | Push del token al stack          | 3 4 8 `*` 2                 | - ( / +             |                                      |
 | 3     | Se agrega el token a la salida   | 3 4 8 `*` 2 3               | - ( / +             |                                      |
 | )     | Pop stack a la salida            | 3 4 8 `*` 2 3 -             | ( / +               | Se repite hasta encontrar el "("     |
 | )     | Pop stack                        | 3 4 8 `*` 2 3 -             | / +                 | Descarta el paréntesis emparejados   |
