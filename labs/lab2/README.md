@@ -123,7 +123,7 @@ Pasos:
    - Sacar **todos** los operadores que queden en la pila y **añadirlos** a la cola de salida.
 
 Ejemplo del funcionamiento de la pila\n
-![Shunting yard](./Shunting_yard.png)
+![Shunting yard](./Shunting_yard_ok.png)
 
 2. **Ejemplo detallado**
    Entrada : 7 + 2 `*` 8 / ( 2 - 3 ) ^ 8 ^ 1
