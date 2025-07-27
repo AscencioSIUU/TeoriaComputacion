@@ -97,22 +97,55 @@ El programa leerá `expressions3.txt`, mostrará los pasos del algoritmo y la co
 
 ## 🔍 Investigación
 
-En esta sección incluye tu análisis teórico y referencias según el enunciado:
-
-1. **Explicación del algoritmo de Shunting Yard**
+1. **Algoritmo de Shunting Yard**
 
    - ¿Cómo funciona?
    - Complejidad temporal y espacial.
+     El algoritmo de shunting yard (patio de clasificación) fue nombrado así por Edsger Dijistra porque su operación se asemeja al patio de flasificación del ferrocarril. Este algoritmo es un metodo para analizar (parsing) las ecuaciones matemátias en notación infijo, volviendolas a notación postfijo. Esto lo ahce para que una computadora pueda entenderla y resolverla fácilmente.
 
-2. **Método de Thompson**
+Pasos:
 
-   - Comparación con otros métodos de construcción de autómatas.
-   - Ventajas y limitaciones.
+1. **Leer el siguiente token** de la expresión infix. `de izquierda a derecha`.
+2. **Si es un operando** (letra, dígito, literal…):
+   - Añadirlo **directamente** al final de la **cola de salida**.
+3. **Si es un operador** (por ejemplo `+`, `*`, `?`, `|`):
+   1. Mientras **la pila no esté vacía** y en su cima haya otro operador con **mayor o igual precedencia**:
+      - Sacar ese operador de la pila y **añadirlo** a la cola de salida.
+   2. **Apilar** el operador actual.
+4. **Si es un paréntesis izquierdo** `(`, simplemente **apilarlo**.
+5. **Si es un paréntesis derecho** `)`:
+   1. Mientras la pila **no** tenga `(` en la cima:
+      - Sacar operadores de la pila y **añadirlos** a la cola de salida.
+   2. Sacar (pero **no** encolar) el `(` de la pila.
+   3. (Opcional) Si justo encima del `(` había un **operador de función** o de unión implícita, sacarlo y **ponerlo** en la cola de salida.
+6. **Fin de la lectura**:
+   - Sacar **todos** los operadores que queden en la pila y **añadirlos** a la cola de salida.
 
-3. **Casos de prueba adicionales**
+[Shunting yard](labs/lab2/Shunting_yard.png)
 
-   - Listado de expresiones (con y sin balanceo).
-   - Resultados esperados vs. obtenidos.
+2. **Ejemplo detallado**
+   Entrada : 7 + 2 `*` 8 / ( 2 - 3 ) ^ 8 ^ 1
+
+| Token | Acción                           | Salida en RPN               | Stack de operadores | Observacion                          |
+| ----- | -------------------------------- | --------------------------- | ------------------- | ------------------------------------ |
+| 7     | Se agrega token a la salida      | 3                           |                     |                                      |
+| +     | Push del token al stack          | 3                           | +                   |                                      |
+| 2     | Se agrega token a la salida      | 3 4                         | +                   |                                      |
+| `*`   | Push del token al stack          | 3 4                         | `*` +               | \* tiene mayor presedencia que +     |
+| 8     | Se agrega token a la salida      | 3 4 8                       | `*` +               |                                      |
+| /     | Pop stack a la salida            | 3 4 8 `*`                   | +                   | / y \* tienen la misma presedencia   |
+| /     | Push del token al stack          | 3 4 8 `*`                   | / +                 | / tiene mayor presedencia que +      |
+| (     | Push del token al stack          | 3 4 8 `*`                   | ( / +               |                                      |
+| 2     | Se agrega el token a la salida   | 3 4 8 `*` 2                 | ( / +               |                                      |
+| -     | Push del token al stack          | 3 4 8 `*` 2                 | - ( / + `           |                                      |
+| 3     | Se agrega el token a la salida   | 3 4 8 `*` 2 3               | - ( / +             |                                      |
+| )     | Pop stack a la salida            | 3 4 8 `*` 2 3 -             | ( / +               | Se repite hasta encontrar el "("     |
+| )     | Pop stack                        | 3 4 8 `*` 2 3 -             | / +                 | Descarta el paréntesis emparejados   |
+| ^     | Push token al stack              | 3 4 8 `*` 2 3 -             | ^ / +               | ^ tiene mayor presedencia que /      |
+| 8     | Se agrega el token a la salida   | 3 4 8 `*` 2 3 - 8           | ^ / +               | ^ tiene mayor presedencia que /      |
+| ^     | Push token al stack              | 3 4 8 `*` 2 3 - 8           | ^ ^ / +             | ^ es evaluado de derecha a izquierda |
+| 1     | Agrega token a la salida         | 3 4 8 `*` 2 3 - 8 1         | ^ ^ / +             |                                      |
+| end   | Pop a todo el stack de la salida | 3 4 8 `*` 2 3 - 8 1 ^ ^ / + |                     |                                      |
 
 4. **Referencias bibliográficas**
    - Artículos, libros o recursos web que consultaste.
