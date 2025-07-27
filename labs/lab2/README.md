@@ -122,7 +122,7 @@ Pasos:
 6. **Fin de la lectura**:
    - Sacar **todos** los operadores que queden en la pila y **añadirlos** a la cola de salida.
 
-Ejemplo del funcionamiento de la pila\n
+Ejemplo del funcionamiento de la pila
 ![Shunting yard](./Shunting_yard_ok.png)
 
 2. **Ejemplo detallado**
