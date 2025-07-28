@@ -4,6 +4,9 @@
 
 ```
 lab2/
+├── config               # Carpeta de funciones para cada ejercicio
+   └── exercise2.go      # Funciones de stack para ejercicio 2
+   └── exercise3.go      # Funciones de infix y postfix para ejercicio 3
 ├── exercise2.go         # Verificador de expresiones balanceadas
 ├── expressions2.txt     # Expresiones de prueba para el ejercicio 2
 ├── exercise3.go         # Shunting Yard: infix → postfix
