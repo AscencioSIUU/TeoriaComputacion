@@ -41,6 +41,10 @@ lab2/
 
 ## ▶️ Ejecución
 
+### Video en ejecución
+
+[https://youtu.be/lkKP2C__Wkw](https://youtu.be/lkKP2C__Wkw)
+
 ### 🔹 Ejercicio 2 — Verificador de expresiones balanceadas
 
 1. Coloca tus expresiones en `expressions2.txt`, una por línea.
