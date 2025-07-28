@@ -150,8 +150,6 @@ Ejemplo del funcionamiento de la pila
 | end   | Pop a todo el stack de la salida | 3 4 8 `*` 2 3 - 8 1 ^ ^ / + |                     |                                      |
 
 4. **Referencias bibliográficas**
-   - Artículos, libros o recursos web que consultaste.
-
-> _Sigue el formato APA 7ª edición para tus referencias._
+colaboradores de Wikipedia. (2025, 22 febrero). Algoritmo shunting yard. Wikipedia, la Enciclopedia Libre. https://es.wikipedia.org/wiki/Algoritmo_shunting_yard
 
 ---
