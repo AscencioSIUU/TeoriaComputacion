@@ -35,22 +35,11 @@ func ContainsRune(slice []rune, r rune) bool {
 }
 
 func shouldInsertConcat(c1, c2 rune) bool {
-	if c1 == '.' || c2 == '.' {
-		return false
+	if (IsAlphanumeric(c1) || c1 == '*' || c1 == ')') &&
+		(IsAlphanumeric(c2) || c2 == '(') {
+		return true
 	}
-	if c1 == '(' || c2 == ')' {
-		return false
-	}
-	if c2 == '*' || c2 == '+' || c2 == '?' {
-		return false
-	}
-	if c1 == '|' || c1 == '^' {
-		return false
-	}
-	if ContainsRune(AllOperators, c1) || ContainsRune(AllOperators, c2) {
-		return false
-	}
-	return true
+	return false
 }
 
 func FormatRegex(regex string) string {
@@ -82,31 +71,69 @@ func ExpandRegexExtensions(expr string) string {
 	var result strings.Builder
 	chars := []rune(expr)
 
-	for i := 0; i < len(chars); i++ {
+	i := 0
+	for i < len(chars) {
 		c := chars[i]
+
 		if c == '\\' && i+1 < len(chars) {
 			result.WriteRune(c)
 			result.WriteRune(chars[i+1])
+			i += 2
+			continue
+		}
+
+		if (c == '+' || c == '?') && i > 0 {
+			// Revisar si aplica a un grupo o símbolo
+			if chars[i-1] == ')' {
+				// Buscar el '(' correspondiente
+				count := 0
+				j := i - 1
+				for j >= 0 {
+					if chars[j] == ')' {
+						count++
+					} else if chars[j] == '(' {
+						count--
+						if count == 0 {
+							break
+						}
+					}
+					j--
+				}
+				group := string(chars[j:i]) // extrae el grupo completo
+
+				if c == '+' {
+					result.WriteString(group) // (X)
+					result.WriteRune('.')     // .
+					result.WriteString(group) // (X)
+					result.WriteRune('*')     // *
+				} else { // c == '?'
+					result.WriteRune('(')
+					result.WriteString(group)
+					result.WriteRune('|')
+					result.WriteRune('ε')
+					result.WriteRune(')')
+				}
+			} else {
+				previous := chars[i-1]
+				if c == '+' {
+					result.WriteRune(previous)
+					result.WriteRune('.')
+					result.WriteRune(previous)
+					result.WriteRune('*')
+				} else {
+					result.WriteRune('(')
+					result.WriteRune(previous)
+					result.WriteRune('|')
+					result.WriteRune('ε')
+					result.WriteRune(')')
+				}
+			}
 			i++
 			continue
 		}
-		if (c == '+' || c == '?') && i > 0 {
-			previous := chars[i-1]
-			if c == '+' {
-				result.WriteRune(previous)
-				result.WriteRune('.')
-				result.WriteRune(previous)
-				result.WriteRune('*')
-			} else {
-				result.WriteRune('(')
-				result.WriteRune(previous)
-				result.WriteRune('|')
-				result.WriteRune('ε')
-				result.WriteRune(')')
-			}
-		} else {
-			result.WriteRune(c)
-		}
+
+		result.WriteRune(c)
+		i++
 	}
 	return result.String()
 }

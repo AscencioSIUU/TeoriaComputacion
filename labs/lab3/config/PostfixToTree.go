@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strconv"
 )
 
 type Node struct {
@@ -27,6 +28,10 @@ func PostfixToTree(postfix string) *Node {
 			nodeIdCounter++
 			stack = append(stack, node)
 		} else if i == '|' || i == '.' { // operadores binarios
+			if len(stack) < 2 {
+				fmt.Println("Error: pila insuficiente para operador binario", string(i))
+				return nil
+			}
 			right := stack[len(stack)-1]
 			left := stack[len(stack)-2]
 			stack = stack[:len(stack)-2]
@@ -40,6 +45,10 @@ func PostfixToTree(postfix string) *Node {
 			nodeIdCounter++
 			stack = append(stack, node)
 		} else if i == '*' { // Operador unitario
+			if len(stack) < 1 {
+				fmt.Println("Error: pila insuficiente para operador unario '*'")
+				return nil
+			}
 			child := stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
 
@@ -60,7 +69,8 @@ func PostfixToTree(postfix string) *Node {
 }
 
 func GenerateDotFile(root *Node, fileName int) {
-	file, err := os.Create("linea" + string(fileName) + ".dot")
+	fileNameStr := strconv.Itoa(fileName)
+	file, err := os.Create("dotfiles/linea" + fileNameStr + ".dot")
 	if err != nil {
 		fmt.Println("Error creando archivo .dot:", err)
 		return
@@ -75,7 +85,6 @@ func GenerateDotFile(root *Node, fileName int) {
 		if n == nil {
 			return
 		}
-
 		fmt.Fprintf(file, "    %d [label=\"%s\"];\n", n.ID, n.Label)
 		// Escribr nodo izquierdo
 		if n.Left != nil {
@@ -90,14 +99,19 @@ func GenerateDotFile(root *Node, fileName int) {
 	writeNode(root)
 	fmt.Fprintln(file, "}")
 
-	fmt.Println("Archivo Dot creado:", "linea"+string(fileName)+".dot")
+	fmt.Println("Archivo Dot creado:", "linea"+fileNameStr+".dot")
 }
 
 func GeneratePNGFromDot(fileName int) {
-	cmd := exec.Command("dot", "-Tpng", fileName+".dot", "-o", "linea"+string(fileName)+".png")
+	fileNameStr := strconv.Itoa(fileName)
+	dotFile := "dotfiles/linea" + fileNameStr + ".dot"
+	pngFile := "pngfiles/linea" + fileNameStr + ".png"
+
+	cmd := exec.Command("dot", "-Tpng", dotFile, "-o", pngFile)
 	err := cmd.Run()
 	if err != nil {
 		fmt.Println("Error generando PNG:", err)
 		return
 	}
+	fmt.Println("Imagen PNG generada:", pngFile)
 }

@@ -25,8 +25,8 @@ func main() {
 		fmt.Println("Postfix: ", postfix)
 		root := config.PostfixToTree(postfix)
 		config.GenerateDotFile(root, i)
-		config.GenerateDotFile(i)
-
+		config.GeneratePNGFromDot(i)
+		i++
 	}
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
