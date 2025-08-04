@@ -1,0 +1,16 @@
+digraph SyntaxTree {
+    node [shape=circle];
+    24 [label="*"];
+    24 -> 23;
+    23 [label="|"];
+    23 -> 20;
+    20 [label="|"];
+    20 -> 18;
+    18 [label="ε"];
+    20 -> 19;
+    19 [label="a"];
+    23 -> 22;
+    22 [label="*"];
+    22 -> 21;
+    21 [label="b"];
+}
