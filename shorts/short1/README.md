@@ -45,7 +45,7 @@ Implementa:
 
 ### 🔀 Problema 2 — Lema de Arden
 
-[Problema 2](./shorts/short1/problem2.png)
+![Problema 2](./problem2.png)
 
 A partir de un autómata definido, se construye la **expresión regular equivalente** utilizando el **Lema de Arden**.
 
