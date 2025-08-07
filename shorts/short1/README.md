@@ -70,5 +70,4 @@ Demostración formal de que el lenguaje
 
 ```bash
 go run main.go
-``
 ```
