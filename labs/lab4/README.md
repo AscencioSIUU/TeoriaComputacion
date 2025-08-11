@@ -25,50 +25,50 @@ lab4/
 Go (Golang)
 macOS
 
-bash
-Copiar
-Editar
+```
 brew install go
+```
+
 Ubuntu/Debian
 
-bash
-Copiar
-Editar
+```
 sudo apt install golang
-Graphviz
+```
+
+Graphvi
 macOS
 
-bash
-Copiar
-Editar
+```
 brew install graphviz
+```
+
 Ubuntu/Debian
 
-bash
-Copiar
-Editar
+```
 sudo apt install graphviz
+```
+
 Verifica instalación
 
-bash
-Copiar
-Editar
+```
 dot -V
+```
+
 🛠️ Instalación
 Clonar el repositorio:
 
-bash
-Copiar
-Editar
-git clone https://github.com/usuario/lab4-teocomp.git
-cd lab4
+```
+git clone https://github.com/AscencioSIUU/TeoriaComputacion.git
+cd lab/lab4
+```
+
 Ejecutar el laboratorio:
 
-bash
-Copiar
-Editar
+```
 cd ejercicio1
 go run main.go
+```
+
 ▶️ Ejecución
 Video de demostración
 Enlace a YouTube — No listado
