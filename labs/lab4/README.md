@@ -18,8 +18,9 @@ lab4/
 │   ├── afn_graphs/                # Imágenes PNG de los AFNs generados
 │   └── simulation_results.txt     # Resultados de simulación de cadenas
 └── README.md                     # Este archivo
-
 ```
+
+---
 
 ⚙️ Requisitos previos
 Go (Golang)
@@ -59,7 +60,7 @@ Clonar el repositorio:
 
 ```
 git clone https://github.com/AscencioSIUU/TeoriaComputacion.git
-cd lab/lab4
+cd labs/lab4
 ```
 
 Ejecutar el laboratorio:
@@ -69,26 +70,32 @@ cd ejercicio1
 go run main.go
 ```
 
+---
+
 ▶️ Ejecución
 Video de demostración
 Enlace a YouTube — No listado
 
-🔹 Ejercicio 1 — Algoritmo de Thompson y Simulación de AFN
+---
+
+## 🔹 Ejercicio 1 — Algoritmo de Thompson y Simulación de AFN
+
 Expresiones utilizadas:
+
+```
 (a*|b*)+
-
 ((ε|a)|b*)*
-
 (a|b)abb(a|b)
-
 0?(1?)?0\*
+```
 
 Funcionamiento:
 Expande operadores:
 
+```
 a+ → aa\*
-
 a? → (a|ε)
+```
 
 Inserta concatenación explícita con .
 
@@ -100,9 +107,10 @@ Aplica Algoritmo de Thompson para generar el AFN
 
 Guarda un .dot y lo convierte a .png con Graphviz
 
-Simula la cadena w para determinar si pertenece a L(r)
+## Simula la cadena w para determinar si pertenece a L(r)
 
-🔹 Ejercicio 2 — Lema de Bombeo
+## 🔹 Ejercicio 2 — Lema de Bombeo
+
 Se demuestra que el lenguaje
 A = { yy | y ∈ {0,1} }\*
 no es regular.
