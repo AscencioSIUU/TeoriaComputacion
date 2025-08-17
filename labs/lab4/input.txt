@@ -1,4 +1,4 @@
-(a*|b*);aaaa
-((ε|a)|b*);abbb
+(a*|b*)+;aaaa
+((ε|a)|b*)*;abbb
 (a|b)*abb(a|b)*;xxabbx
 0?(1?)?0*;0100
