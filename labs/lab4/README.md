@@ -3,9 +3,7 @@ Laboratorio 4
 
 ```
 lab4/
-├── cmd/
-│   └── lab4/
-│       └── main.go            # Orquestación: lectura, pipeline, DOT/PNG, simulación
+├── main.go                    # Orquestación: lectura, pipeline, DOT/PNG, simulación
 ├── config/
 │   └── config.go              # Expand (+,?), Format (.), Infix→Postfix (Shunting Yard), helpers
 ├── graphviz/
