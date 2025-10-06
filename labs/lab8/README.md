@@ -43,7 +43,7 @@ lab8/
 
 ---
 
-Video: 
+Video: https://youtu.be/rFvb7m2EVak
 
 ---
 
