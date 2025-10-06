@@ -1,0 +1,7 @@
+exercise,n,avg_ms,runs,note
+ex04-avg-mixed,1,1.000000,1,
+ex04-avg-mixed,10,7.750000,1,
+ex04-avg-mixed,100,75.250000,1,
+ex04-avg-mixed,1000,750.250000,1,
+ex04-avg-mixed,10000,7500.250000,1,
+ex04-avg-mixed,100000,75000.250000,1,

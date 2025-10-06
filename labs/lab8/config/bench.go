@@ -9,7 +9,6 @@ import (
 	"time"
 )
 
-// TimeN runs r 'runs' times for input n and returns the average millis.
 func TimeN(r Runner, n, runs int) Result {
 	if runs < 1 {
 		runs = 1
@@ -21,13 +20,16 @@ func TimeN(r Runner, n, runs int) Result {
 		sink += r(n)
 		total += time.Since(start)
 	}
-	// prevent compiler from optimizing away the work
+	// Evita que el compilador elimine el trabajo
 	if sink == math.MaxUint64 {
 		fmt.Fprintln(os.Stderr, "ignore:", sink)
 	}
+	// PRECISIÓN: usa ns -> ms con decimales (no Duration.Milliseconds())
+	avgMs := (float64(total.Nanoseconds()) / 1e6) / float64(runs)
+
 	return Result{
 		N:     n,
-		AvgMs: (float64(total.Nanoseconds()) / 1e6) / float64(runs),
+		AvgMs: avgMs,
 		Runs:  runs,
 		Note:  "",
 	}
@@ -41,7 +43,6 @@ func EnsureDir(path string) error {
 	return os.MkdirAll(dir, 0o755)
 }
 
-// AppendCSV appends rows to CSV and writes header if the file is new.
 func AppendCSV(path string, header []string, rows [][]string) error {
 	_, statErr := os.Stat(path)
 	fileExists := statErr == nil

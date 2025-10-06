@@ -1,0 +1,7 @@
+exercise,n,avg_ms,runs,note
+ex04-avg-success,1,1.000000,1,
+ex04-avg-success,10,5.500000,1,
+ex04-avg-success,100,50.500000,1,
+ex04-avg-success,1000,500.500000,1,
+ex04-avg-success,10000,5000.500000,1,
+ex04-avg-success,100000,50000.500000,1,

@@ -19,15 +19,6 @@ type PlotRow struct {
 	AvgMs float64
 }
 
-func ensureDir(path string) error {
-	dir := filepath.Dir(path)
-	if dir == "." || dir == "" {
-		return nil
-	}
-	return os.MkdirAll(dir, 0o755)
-}
-
-// LoadCSV expects header: exercise,n,avg_ms,runs,note
 func LoadCSV(path string) ([]PlotRow, error) {
 	f, err := os.Open(path)
 	if err != nil {
@@ -43,12 +34,13 @@ func LoadCSV(path string) ([]PlotRow, error) {
 	if len(records) <= 1 {
 		return nil, fmt.Errorf("no data rows in %s", path)
 	}
+
 	out := make([]PlotRow, 0, len(records)-1)
 	for i, rec := range records {
-		if i == 0 { // skip header
-			continue
+		if i == 0 {
+			continue // header
 		}
-		if len(rec) < 3 { // need n and avg_ms
+		if len(rec) < 3 {
 			continue
 		}
 		nVal, err := strconv.ParseFloat(rec[1], 64)
@@ -64,13 +56,22 @@ func LoadCSV(path string) ([]PlotRow, error) {
 	return out, nil
 }
 
-// PlotCSV builds a PNG line+scatter chart from the CSV.
-func PlotCSV(inCSV, outPNG, title, xLabel, yLabel string, logX, logY bool) error {
+func ensureDir(path string) error {
+	dir := filepath.Dir(path)
+	if dir == "." || dir == "" {
+		return nil
+	}
+	return os.MkdirAll(dir, 0o755)
+}
+
+// PlotCSVWithOpts: agrega ymin (>0) para evitar “pared” en 0 y opción sin líneas.
+func PlotCSVWithOpts(inCSV, outPNG, title, xLabel, yLabel string,
+	logX, logY bool, yMin float64, drawLine bool) error {
+
 	rows, err := LoadCSV(inCSV)
 	if err != nil {
 		return err
 	}
-
 	p := plot.New()
 	p.Title.Text = title
 	p.X.Label.Text = xLabel
@@ -85,31 +86,43 @@ func PlotCSV(inCSV, outPNG, title, xLabel, yLabel string, logX, logY bool) error
 		p.Y.Tick.Marker = plot.LogTicks{}
 	}
 
+	// Si se define un mínimo de Y, úsalo para evitar el “manchón” en 0
+	if yMin > 0 {
+		p.Y.Min = yMin
+	}
+
 	pts := make(plotter.XYs, 0, len(rows))
 	for _, r := range rows {
 		x := r.N
 		y := r.AvgMs
+
 		if logX && x <= 0 {
 			x = 1
 		}
 		if logY && y <= 0 {
 			y = math.SmallestNonzeroFloat64
 		}
+		if yMin > 0 && y < yMin {
+			y = yMin
+		}
 		pts = append(pts, plotter.XY{X: x, Y: y})
 	}
 
-	line, err := plotter.NewLine(pts)
-	if err != nil {
-		return err
+	if drawLine {
+		line, err := plotter.NewLine(pts)
+		if err != nil {
+			return err
+		}
+		line.Color = color.Black
+		p.Add(line)
 	}
+
 	scat, err := plotter.NewScatter(pts)
 	if err != nil {
 		return err
 	}
-	line.Color = color.Black
 	scat.Radius = vg.Points(2)
-
-	p.Add(line, scat)
+	p.Add(scat)
 
 	if err := ensureDir(outPNG); err != nil {
 		return err

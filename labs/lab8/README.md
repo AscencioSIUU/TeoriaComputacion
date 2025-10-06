@@ -92,6 +92,13 @@ go run . -exercise=3 -ns="1,10,100,1000,10000,100000" -runs=3
 # CSV por defecto: results/ex03.csv
 ```
 
+### Ejercicio 4
+
+```bash
+go run . -mode=gen-linear -ns="1,10,100,1000,10000,100000" -p=0.5 -outdir="results/ex04"
+```
+
+
 ---
 
 ## Uso — modo gráfico (generar PNG desde CSV)
@@ -127,6 +134,23 @@ go run . -mode=plot \
   -outplot=plots/ex03.png \
   -title="Exercise 3: n vs time" \
   -logx=true -logy=true -ymin=0.001
+
+# EX4:
+# Best (Θ(1)) – escala lineal está bien
+go run . -mode=plot -inplot=results/ex04/ex04_best.csv \
+  -outplot=plots/ex04_best.png -title="Linear Search — Best case" -ymin=0.8
+
+# Avg (éxito uniforme) – O(n)
+go run . -mode=plot -inplot=results/ex04/ex04_avg_success.csv \
+  -outplot=plots/ex04_avg_success.png -title="Linear Search — Average (success uniform)" -ymin=0.8
+
+# Avg (mixto p=0.5) – O(n)
+go run . -mode=plot -inplot=results/ex04/ex04_avg_mixed_p0.50.csv \
+  -outplot=plots/ex04_avg_mixed.png -title="Linear Search — Average (p=0.5)" -ymin=0.8
+
+# Worst – O(n)
+go run . -mode=plot -inplot=results/ex04/ex04_worst.csv \
+  -outplot=plots/ex04_worst.png -title="Linear Search — Worst case" -ymin=0.8
 ```
 
 ---
