@@ -1,0 +1,74 @@
+# Ejemplos de frases para probar el algoritmo CYK
+
+## Frases VÁLIDAS (aceptadas por la gramática):
+
+1. she eats
+   - Estructura: NP VP (VP = verbo solo)
+   - Comando: ./bin/cyk --grammar examples/gramaticas/1.txt --input "she eats"
+
+2. she eats a cake
+   - Estructura: NP VP (VP = V NP)
+   - Comando: ./bin/cyk --grammar examples/gramaticas/1.txt --input "she eats a cake"
+
+3. she eats a cake with a fork
+   - Estructura: NP VP (VP = VP PP)
+   - Comando: ./bin/cyk --grammar examples/gramaticas/1.txt --input "she eats a cake with a fork"
+
+4. he drinks the beer
+   - Estructura: NP VP
+   - Comando: ./bin/cyk --grammar examples/gramaticas/1.txt --input "he drinks the beer"
+
+5. the cat eats the cake
+   - Estructura: NP (Det N) VP (V NP)
+   - Comando: ./bin/cyk --grammar examples/gramaticas/1.txt --input "the cat eats the cake"
+
+6. a dog drinks a juice
+   - Estructura: NP VP
+   - Comando: ./bin/cyk --grammar examples/gramaticas/1.txt --input "a dog drinks a juice"
+
+7. he cooks the meat with a knife
+   - Estructura: NP VP PP
+   - Comando: ./bin/cyk --grammar examples/gramaticas/1.txt --input "he cooks the meat with a knife"
+
+8. the dog cuts a cake in the oven
+   - Estructura: NP VP PP
+   - Comando: ./bin/cyk --grammar examples/gramaticas/1.txt --input "the dog cuts a cake in the oven"
+
+## Frases INVÁLIDAS (rechazadas por la gramática):
+
+1. she he eats
+   - Razón: Dos NPs consecutivos
+   - Comando: ./bin/cyk --grammar examples/gramaticas/1.txt --input "she he eats"
+
+2. eats
+   - Razón: Solo verbo, falta NP
+   - Comando: ./bin/cyk --grammar examples/gramaticas/1.txt --input "eats"
+
+3. cake
+   - Razón: Solo sustantivo
+   - Comando: ./bin/cyk --grammar examples/gramaticas/1.txt --input "cake"
+
+4. the the cat
+   - Razón: Dos determinantes
+   - Comando: ./bin/cyk --grammar examples/gramaticas/1.txt --input "the the cat"
+
+5. eats drinks
+   - Razón: Dos verbos sin estructura válida
+   - Comando: ./bin/cyk --grammar examples/gramaticas/1.txt --input "eats drinks"
+
+## Comandos útiles:
+
+# Ver gramática original
+./bin/cyk --grammar examples/gramaticas/1.txt --input "she eats" --show-original
+
+# Ver gramática en CNF
+./bin/cyk --grammar examples/gramaticas/1.txt --input "she eats" --show-cnf
+
+# Modo verbose (más detalle)
+./bin/cyk --grammar examples/gramaticas/1.txt --input "she eats a cake" --verbose
+
+# Mostrar tabla CYK
+./bin/cyk --grammar examples/gramaticas/1.txt --input "she eats" --table
+
+# Combinación de opciones
+./bin/cyk --grammar examples/gramaticas/1.txt --input "she eats a cake with a fork" --verbose --table --show-original --show-cnf
