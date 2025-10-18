@@ -9,6 +9,10 @@ Implementación completa del **algoritmo CYK (Cocke-Younger-Kasami)** para parsi
 
 ---
 
+[video](https://youtu.be/pwOkZcvR6g4)
+
+---
+
 ## 📋 Tabla de Contenidos
 
 1. [Inicio Rápido](#-inicio-rápido)
