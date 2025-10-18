@@ -9,7 +9,7 @@ Implementación completa del **algoritmo CYK (Cocke-Younger-Kasami)** para parsi
 
 ---
 
-[video](https://youtu.be/pwOkZcvR6g4)
+Video de Ejecución: [Proyecto 2 - Teoría de la Computación](https://youtu.be/pwOkZcvR6g4)
 
 ---
 
