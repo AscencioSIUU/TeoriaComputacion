@@ -4,7 +4,7 @@
 Este laboratorio explora conceptos fundamentales de **programación funcional** en Python utilizando funciones de orden superior como `sorted()`, `map()`, `filter()`, y expresiones `lambda`. Contiene 4 ejercicios que demuestran diferentes técnicas funcionales aplicadas a estructuras de datos comunes.
 
 ## Video Explicativo
-![Video Explicativo](https://youtu.be/zcawpWmNeR0)
+[Video Explicativo](https://youtu.be/zcawpWmNeR0)
 
 ## Requisitos
 - **Python 3.6+** (requiere f-strings y características modernas)
